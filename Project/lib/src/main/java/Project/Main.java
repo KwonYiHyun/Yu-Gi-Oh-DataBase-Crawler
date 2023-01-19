@@ -11,7 +11,7 @@ public class Main {
 			System.out.println("============================================================");
 			System.out.println("i = "+i);
 			c.crawling(i);
-			c.crawlingDate(i);
+			c.crawlingDate_ja(i);
 		}
 		
 		c.outCSV();

@@ -51,7 +51,7 @@ public class crawler {
 		count++;
 	}
 	
-	public void crawlingDate(int num) {
+	public void crawlingDate_ja(int num) {
 		urlJa="https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid="+num+"&request_locale=ja";
 		
 		try {
@@ -73,7 +73,30 @@ public class crawler {
 		System.out.println(cardInside);
 		
 		arrCSV[2].add(cardInside);
+	}
+	
+	public void crawlingDate_ko(int num) {
+		urlJa="https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid="+num+"&request_locale=ko";
 		
+		try {
+			doc = Jsoup.connect(urlJa).get();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Elements cardInside_elem=doc.select("div[class=\"inside\"]").select("div[class=\"time\"]");
+		if(cardInside_elem.isEmpty()) {
+			System.out.println("cardInside is Empty!");
+			return;
+		}
+		
+		ArrayList<String> arr=new ArrayList<>();
+		for (Element e : cardInside_elem) {
+			arr.add(e.text().trim());
+		}
+		String cardInside=arr.get(arr.size()-1);
+		System.out.println(cardInside);
+		
+		arrCSV[2].add(cardInside);
 	}
 	
 	public void outCSV() {
