@@ -20,6 +20,8 @@ public class crawler {
 	
 	public ArrayList<String>[] arrCSV=new ArrayList[3];
 	int count=1;
+
+	public boolean iskr;
 	
 	public void init() {
 		doc=null;
@@ -31,7 +33,7 @@ public class crawler {
 	
 	public void crawling(int num) {
 		urlKr="https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid="+num+"&request_locale=ko";
-		
+		iskr=true;
 		try {
 			doc = Jsoup.connect(urlKr).get();
 		} catch (IOException e) {
@@ -41,10 +43,12 @@ public class crawler {
 		Elements cardName_elem=doc.select("div[id=\"cardname\"]");
 		if(cardName_elem.isEmpty()) {
 			System.out.println("cardName is Empty!");
+			iskr=false;
 			return;
 		}
-		
-		String cardName=cardName_elem.toString().split("<h1>")[1].split("<span>")[0].trim();
+
+		String cardName=cardName_elem.toString().split("<h1>")[1].split("</h1>")[0].split("<span>")[0].trim();
+		//System.out.println("card_name : "+cardName_elem.toString());
 		System.out.println(cardName);
 		arrCSV[0].add(count+"");
 		arrCSV[1].add(cardName);
@@ -52,6 +56,7 @@ public class crawler {
 	}
 	
 	public void crawlingDate_ja(int num) {
+		if(!iskr) return;
 		urlJa="https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid="+num+"&request_locale=ja";
 		
 		try {
@@ -101,7 +106,8 @@ public class crawler {
 	
 	public void outCSV() {
 		
-		File file=new File(".\\result\\DB.csv");;
+//		File file=new File(".\\result\\DB.csv");
+		File file=new File(".\\lib\\result\\DB.csv");
 		String rootPath=file.getAbsolutePath();
 		
 		BufferedWriter bw=null;

@@ -7,9 +7,10 @@ public class Main {
 		crawler c=new crawler();
 		c.init();
 		
-		for (int i = 4000; i <= 4020; i++) {
+		for (int i = 4000; i <= 19000; i++) {
 			System.out.println("============================================================");
 			System.out.println("i = "+i);
+
 			c.crawling(i);
 			c.crawlingDate_ja(i);
 		}
