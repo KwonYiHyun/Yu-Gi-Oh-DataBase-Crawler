@@ -28,8 +28,8 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.13.1'
 }
 
-//jar {
-//	manifest{
-//		attributes 'Main-Class':'Project.Main.java'
-//	}
-//}
+jar {
+	manifest{
+		attributes 'Main-Class':'Project.Main.java'
+	}
+}
